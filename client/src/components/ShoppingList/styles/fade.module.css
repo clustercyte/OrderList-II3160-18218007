@@ -1,0 +1,17 @@
+.enter {
+    opacity: 0.1;
+}
+
+.enterActive{
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.exit {
+    opacity: 1;
+}
+
+.exitEnter{
+    opacity: 0.01;
+    transition: opacity 500ms ease-in;
+}
