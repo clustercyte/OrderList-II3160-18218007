@@ -1,45 +1,37 @@
-import React, {Component} from 'react';
+import React, { useState } from "react";
 import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    Container
-} from 'reactstrap';
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Container,
+} from "reactstrap";
 
-class AppNavbar extends Component {
-    state = {
-        isOpen : false
-    };
+const AppNavbar = () => {
+  const [isOpen, toggle] = useState(false);
 
-    toggle = () => {
-        this.setState({
-            isOpen : !this.state.isOpen
-        })
-    }
+  return (
+    <div>
+      <Navbar color="dark" dark expand="sm" className="mb-5">
+        <Container>
+          <NavbarBrand href="/">Shopping List</NavbarBrand>
+          <NavbarToggler onClick={() => toggle(!isOpen)} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink href="https://github.com/xavierprasetyo">
+                  Github
+                </NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Container>
+      </Navbar>
+    </div>
+  );
+};
 
-    render() {
-        return (
-            <div>
-                <Navbar color="dark" dark expand="sm" className="mb-5">
-                    <Container>
-                        <NavbarBrand href="/">Shopping List</NavbarBrand>
-                        <NavbarToggler onClick={this.toggle}/>
-                        <Collapse isOpen={this.state.isOpen} navbar >
-                            <Nav className="ml-auto" navbar>
-                                <NavItem>
-                                    <NavLink href="https://github.com/xavierprasetyo">Github</NavLink>
-                                </NavItem>
-                            </Nav>
-                        </Collapse>
-                    </Container>
-                </Navbar>
-            </div>
-        )
-    }
-}
-
-export default AppNavbar
+export default AppNavbar;
