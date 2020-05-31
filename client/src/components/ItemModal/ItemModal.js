@@ -12,11 +12,16 @@ import {
 import styles from "./ItemModal.module.css";
 import { connect } from "react-redux";
 import { addItems } from "../../actions/itemActions";
+import PropTypes from "prop-types";
 
 class ItemModal extends Component {
   state = {
     modal: false,
     name: "",
+  };
+
+  static propTypes = {
+    isAuth: PropTypes.bool,
   };
 
   toggle = () => {
@@ -43,9 +48,17 @@ class ItemModal extends Component {
   render() {
     return (
       <div>
-        <Button color="dark" className={styles.addButton} onClick={this.toggle}>
-          Add Item
-        </Button>
+        {this.props.isAuth ? (
+          <Button
+            color="dark"
+            className={styles.addButton}
+            onClick={this.toggle}
+          >
+            Add Item
+          </Button>
+        ) : (
+          <h4 className="mb-3 ml-4"> Please Login to add items</h4>
+        )}
 
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Add to Shopping List</ModalHeader>
@@ -74,6 +87,7 @@ class ItemModal extends Component {
 
 const mapStateToProps = (state) => ({
   item: state.item,
+  isAuth: state.auth.isAuth,
 });
 
 export default connect(mapStateToProps, { addItems })(ItemModal);

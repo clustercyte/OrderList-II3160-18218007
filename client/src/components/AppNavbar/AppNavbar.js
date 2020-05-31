@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import {
   Collapse,
   Navbar,
@@ -9,9 +9,37 @@ import {
   NavLink,
   Container,
 } from "reactstrap";
+import { RegisterModal, LoginModal, Logout } from "../auth";
+import { connect } from "react-redux";
 
-const AppNavbar = () => {
+const AppNavbar = ({ auth }) => {
   const [isOpen, toggle] = useState(false);
+
+  const { isAuth, user } = auth;
+
+  const authLinks = (
+    <Fragment>
+      <NavItem>
+        <span className="navbar-text mr-3">
+          <strong> {user ? `Welcom ${user.name}` : ""} </strong>
+        </span>
+      </NavItem>
+      <NavItem>
+        <Logout />
+      </NavItem>
+    </Fragment>
+  );
+
+  const guestLinks = (
+    <Fragment>
+      <NavItem>
+        <RegisterModal />
+      </NavItem>
+      <NavItem>
+        <LoginModal />
+      </NavItem>
+    </Fragment>
+  );
 
   return (
     <div>
@@ -21,6 +49,7 @@ const AppNavbar = () => {
           <NavbarToggler onClick={() => toggle(!isOpen)} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
+              {isAuth ? authLinks : guestLinks}
               <NavItem>
                 <NavLink href="https://github.com/xavierprasetyo">
                   Github
@@ -34,4 +63,8 @@ const AppNavbar = () => {
   );
 };
 
-export default AppNavbar;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, null)(AppNavbar);
