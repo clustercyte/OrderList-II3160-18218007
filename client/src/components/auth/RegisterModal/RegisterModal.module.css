@@ -1,7 +1,11 @@
 .addButton {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .modalAdd {
-    margin-top: 2em;
+  margin-top: 2em;
+}
+
+.btn:hover {
+  cursor: pointer;
 }
