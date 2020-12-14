@@ -22,7 +22,7 @@ const AppNavbar = () => {
           <Collapse isOpen={isOpen} navbar>
             <Nav className='ml-auto' navbar>
               <NavItem>
-                <NavLink href='https://github.com/xavierprasetyo'>
+                <NavLink href='https://github.com/clustercyte/OrderList-II3160-18218007'>
                   Github
                 </NavLink>
               </NavItem>

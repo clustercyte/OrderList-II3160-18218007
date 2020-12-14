@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const path = require('path')
 const config = require('config')
+const Log = require('./models/Log')
 
 const app = express()
 app.use(express.json())
@@ -14,7 +15,9 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true
   })
-  .then(() => console.log('MongoDB Connected'))
+  .then(() => {
+    console.log('MongoDB Connected')
+  })
   .catch(err => console.log(err))
 
 app.use('/api/pesanan', require('./routes/api/pesanan'))

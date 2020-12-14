@@ -11,9 +11,10 @@ router.get('/', (req, res) => {
   Item.find()
     .sort({ date: -1 })
     .then(pesanan => {
-      res.status(200).send({ pesanan })
       try {
-        Log.updateOne({}, { $inc: { GetPesanan: 1 } })
+        Log.updateOne({}, { $inc: { GetPesanan: 1 } }, { upsert: true }).then(
+          () => res.status(200).send({ pesanan })
+        )
       } catch {
         res.status(500).send({
           message: 'Internal server error'
@@ -42,8 +43,9 @@ router.post('/', auth, (req, res) => {
   })
   try {
     newItem.save().then(item => {
-      res.json(item)
-      Log.updateOne({}, { $inc: { AddPesanan: 1 } })
+      Log.updateOne({}, { $inc: { AddPesanan: 1 } }, { upsert: true }).then(
+        () => res.json(item)
+      )
     })
   } catch {
     res.status(500).send({
@@ -66,8 +68,9 @@ router.put('/', auth, (req, res) => {
   const idItem = req.body.id
   try {
     Item.updateOne({ _id: idItem }, { $set: { name: namaItem } }).then(() => {
-      res.json({ success: true })
-      Log.updateOne({}, { $inc: { EditPesanan: 1 } })
+      Log.updateOne({}, { $inc: { EditPesanan: 1 } }, { upsert: true }).then(
+        () => res.json({ success: true })
+      )
     })
   } catch (e) {
     console.log(e)
@@ -84,9 +87,10 @@ router.delete('/:id', auth, (req, res) => {
   Item.findById(req.params.id)
     .then(item =>
       item.remove().then(() => {
-        res.json({ success: true })
         try {
-          Log.updateOne({}, { $inc: { DelPesanan: 1 } })
+          Log.updateOne({}, { $inc: { DelPesanan: 1 } }, { upsert: true }).then(
+            () => res.json({ success: true })
+          )
         } catch {
           res.status(500).send({
             message: 'Internal server error'
@@ -97,4 +101,13 @@ router.delete('/:id', auth, (req, res) => {
     .catch(err => res.status(400).json({ success: false }))
 })
 
+//@route    GET api/log
+//@desc     get api logs
+//@access   Public
+router.get('/log', (req, res) => {
+  Log.find()
+    .select('-_id')
+    .select('-__v')
+    .then(log => res.json(log))
+})
 module.exports = router

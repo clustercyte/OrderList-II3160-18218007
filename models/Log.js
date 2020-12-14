@@ -3,20 +3,16 @@ const Schema = mongoose.Schema
 
 const logSchema = new Schema({
   GetPesanan: {
-    type: Number,
-    default: 0
+    type: Number
   },
   AddPesanan: {
-    type: Number,
-    default: 0
+    type: Number
   },
   DelPesanan: {
-    type: Number,
-    default: 0
+    type: Number
   },
   EditPesanan: {
-    type: Number,
-    default: 0
+    type: Number
   }
 })
 
