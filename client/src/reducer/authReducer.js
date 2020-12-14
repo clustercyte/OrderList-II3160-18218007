@@ -1,57 +1,27 @@
-import {
-  USER_LOADED,
-  USER_LOADING,
-  AUTH_ERROR,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGOUT_SUCCESS,
-  REGISTER_SUCCESS,
-  REGISTER_FAIL,
-} from "../actions/types";
+import { LOGIN_SUCCESS, LOGOUT_SUCCESS } from '../actions/types'
 
 const initialState = {
-  token: localStorage.getItem("token"),
-  isAuth: null,
-  isLoading: false,
-  user: null,
-};
+  token: localStorage.getItem('token'),
+  isAuth: localStorage.getItem('token') ? true : false
+}
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case USER_LOADING:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case USER_LOADED:
-      return {
-        ...state,
-        isLoading: false,
-        isAuth: true,
-        user: action.payload,
-      };
     case LOGIN_SUCCESS:
-    case REGISTER_SUCCESS:
-      localStorage.setItem("token", action.payload.token);
+      localStorage.setItem('token', action.payload)
       return {
         ...state,
-        ...action.payload,
-        isLoading: false,
-        isAuth: true,
-      };
-    case AUTH_ERROR:
-    case LOGIN_FAIL:
+        token: action.payload,
+        isAuth: true
+      }
     case LOGOUT_SUCCESS:
-    case REGISTER_FAIL:
-      localStorage.removeItem("token");
+      localStorage.removeItem('token')
       return {
         ...state,
         token: null,
-        isLoading: false,
-        isAuth: false,
-        user: null,
-      };
+        isAuth: false
+      }
     default:
-      return state;
+      return state
   }
 }

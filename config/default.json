@@ -1,4 +1,5 @@
 {
-    "mongoURI" :"mongodb+srv://xrovenium:xrove123@mernx-shdkc.mongodb.net/test?retryWrites=true&w=majority",
-    "jwtSecret":"cupang123_loa"
+    "mongoURI" :"mongodb+srv://clustercyte:mynameshafa@clustercyte.rsweh.mongodb.net/orderlistdb?retryWrites=true&w=majority",
+    "jwtSecret":"cupang123_loa",
+    "client_id":"433808518427-afl8b5mplovmh6o1s2upilioov28nqbk.apps.googleusercontent.com"
 }
