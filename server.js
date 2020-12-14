@@ -22,7 +22,7 @@ mongoose
 
 app.use('/api/pesanan', require('./routes/api/pesanan'))
 
-if (process.env.NODE_ENV === 'production') {
+if (true) {
   app.use(express.static('client/build'))
 
   app.get('*', (req, res) => {
